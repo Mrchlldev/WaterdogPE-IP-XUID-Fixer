@@ -20,7 +20,7 @@ class WaterdogPEFixer extends PluginBase implements Listener {
     #################################
     ##[Fix Waterdog(PE) IP & XUID ]##
     #################################
-    
+
     public function onPacketReceive(DataPacketReceiveEvent $event) : void {
         $packet = $event->getPacket();
         if($packet instanceof LoginPacket) {
@@ -33,20 +33,20 @@ class WaterdogPEFixer extends PluginBase implements Listener {
                     } catch ( ReflectionException $e ) {}
                 }
             }
-            if(isset($packet->clientData["Waterdog_IP"])) {
+            if(isset($packet->clientDataJwt["Waterdog_IP"])) {
                 $class = new ReflectionClass($event->getPlayer());
 
                 $prop = $class->getProperty("ip");
                 $prop->setAccessible(true);
-                $prop->setValue($event->getPlayer(), $packet->clientData["Waterdog_IP"]);
+                $prop->setValue($event->getPlayer(), $packet->clientDataJwt["Waterdog_IP"]);
             }
-            if (isset($packet->clientData["Waterdog_XUID"])) {
+            if (isset($packet->clientDataJwt["Waterdog_XUID"])) {
                 $class = new ReflectionClass($event->getPlayer());
 
                 $prop = $class->getProperty("xuid");
                 $prop->setAccessible(true);
-                $prop->setValue($event->getPlayer(), $packet->clientData["Waterdog_XUID"]);
-                $packet->xuid = $packet->clientData["Waterdog_XUID"];
+                $prop->setValue($event->getPlayer(), $packet->clientDataJwt["Waterdog_XUID"]);
+                $packet->xuid = $packet->clientDataJwt["Waterdog_XUID"];
             }
         }
     }
