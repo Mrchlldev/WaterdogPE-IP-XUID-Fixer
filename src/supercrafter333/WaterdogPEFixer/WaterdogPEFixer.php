@@ -11,18 +11,17 @@ use ReflectionClass;
 use ReflectionException;
 use ReflectionProperty;
 
-class WaterdogPEFixer extends PluginBase implements Listener
-{
+class WaterdogPEFixer extends PluginBase implements Listener {
 
-    public function onEnable()
-    {
+    public function onEnable() : void {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
     }
 
     #################################
     ##[Fix Waterdog(PE) IP & XUID ]##
     #################################
-    public function onPacketReceive(DataPacketReceiveEvent $event): void {
+    
+    public function onPacketReceive(DataPacketReceiveEvent $event) : void {
         $packet = $event->getPacket();
         if($packet instanceof LoginPacket) {
             foreach ( $this->getServer()->getNetwork()->getInterfaces() as $interface ) {
